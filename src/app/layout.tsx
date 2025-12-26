@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Work_Sans } from "next/font/google";
@@ -42,6 +43,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+            <Analytics />
         </ThemeProvider>
       </body>
     </html>

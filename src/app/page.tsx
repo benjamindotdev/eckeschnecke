@@ -245,7 +245,7 @@ export default function Home() {
             className="dark:invert shrink-0"
             priority
           />
-          <h1 className="text-sm md:text-2xl font-bold tracking-tight">
+          <h1 className="text-lg md:text-2xl font-bold tracking-tight">
             EckeSchnecke
           </h1>
         </div>
