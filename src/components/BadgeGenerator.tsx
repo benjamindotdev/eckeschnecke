@@ -37,6 +37,9 @@ const BadgeGenerator = forwardRef<SVGSVGElement, BadgeGeneratorProps>(({ address
   const [displayedAddresses, setDisplayedAddresses] = useState(addresses);
   const [isPointsVisible, setIsPointsVisible] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
+  
+  // Touch state
+  const [touchStartDist, setTouchStartDist] = useState<number | null>(null);
 
   useEffect(() => {
     if (addresses !== displayedAddresses) {
@@ -250,6 +253,65 @@ const BadgeGenerator = forwardRef<SVGSVGElement, BadgeGeneratorProps>(({ address
     setIsDragging(false);
   };
 
+  const getDistance = (t1: React.Touch, t2: React.Touch) => {
+    const dx = t1.clientX - t2.clientX;
+    const dy = t1.clientY - t2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      setStartPoint({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    } else if (e.touches.length === 2) {
+      setIsDragging(false);
+      const dist = getDistance(e.touches[0], e.touches[1]);
+      setTouchStartDist(dist);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    // Prevent default to stop page scrolling while interacting with map
+    // Note: This might require 'touch-action: none' in CSS
+    
+    if (e.touches.length === 1 && isDragging) {
+      const dx = e.touches[0].clientX - startPoint.x;
+      const dy = e.touches[0].clientY - startPoint.y;
+      
+      const container = e.currentTarget;
+      const [vx, vy, vw, vh] = viewBox.split(" ").map(Number);
+      
+      const scale = vw / container.clientWidth;
+      
+      const newX = vx - dx * scale;
+      const newY = vy - dy * scale;
+      
+      updateViewBox(newX, newY, vw, vh);
+      setStartPoint({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    } else if (e.touches.length === 2 && touchStartDist) {
+      const dist = getDistance(e.touches[0], e.touches[1]);
+      // If dist increases (zoom in), factor should be < 1
+      // factor = startDist / dist
+      const factor = touchStartDist / dist;
+      
+      // Apply zoom
+      handleZoom(factor);
+      
+      // Update start dist for next move to keep it incremental
+      setTouchStartDist(dist);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    setTouchStartDist(null);
+  };
+
   const [vx, vy, vw, vh] = viewBox.split(" ").map(Number);
 
   if (!grid) return <div className="text-xs text-muted-foreground">Loading grid...</div>;
@@ -257,12 +319,15 @@ const BadgeGenerator = forwardRef<SVGSVGElement, BadgeGeneratorProps>(({ address
   return (
     <div 
       data-testid="badge-container"
-      className={`relative w-full h-full group overflow-hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+      className={`relative w-full h-full group overflow-hidden touch-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <svg ref={ref} viewBox={viewBox} className="w-full h-full transition-all duration-200 ease-out pointer-events-none">
         {/* Draw Grid Cells */}
