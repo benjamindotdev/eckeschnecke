@@ -385,7 +385,7 @@ const BadgeGenerator = forwardRef<SVGSVGElement, BadgeGeneratorProps>(({ address
       </svg>
       
       {/* Controls */}
-      <div className="absolute bottom-0 right-0 md:bottom-4 md:right-4 flex flex-col items-end gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-0 right-0 xl:bottom-4 xl:right-4 flex flex-col items-end gap-2 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity">
         {/* Download Menu */}
         {isDownloadOpen && (
           <div className="flex flex-col gap-2 mb-2 animate-in fade-in slide-in-from-bottom-2 items-end">

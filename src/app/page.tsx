@@ -253,7 +253,7 @@ export default function Home() {
       </header>
 
       <main className="max-w-7xl mx-auto sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col-reverse md:gap-8 md:grid md:grid-cols-6">
+        <div className="flex flex-col-reverse gap-8 xl:grid xl:grid-cols-6">
           <AddressSection addresses={addresses} setAddresses={setAddresses} />
 
           <MapSection 

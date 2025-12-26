@@ -10,7 +10,7 @@ interface MapSectionProps {
 
 const MapSection = forwardRef<SVGSVGElement, MapSectionProps>(({ addresses, onDownloadSvg, onDownloadPng }, ref) => {
   return (
-    <div className="bg-card p-6 shadow-sm border border-border md:col-span-4">
+    <div className="bg-card p-6 shadow-sm border border-border xl:col-span-4">
       <div className="aspect-square bg-muted rounded-lg flex items-center justify-center p-4 overflow-hidden relative">
         <BadgeGenerator 
           addresses={addresses} 

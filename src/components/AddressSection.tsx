@@ -30,7 +30,7 @@ export default function AddressSection({ addresses, setAddresses }: AddressSecti
   };
 
   return (
-    <div className="bg-card p-6 shadow-sm border border-border md:col-span-2 space-y-2 flex flex-col max-h-[calc(100vh-200px)]">
+    <div className="bg-card p-6 shadow-sm border border-border xl:col-span-2 space-y-2 flex flex-col max-h-[calc(100vh-200px)]">
       <AddressInput onAddAddress={handleAddAddress} disabled={addresses.length >= 15} />
       <div className="flex-1 overflow-y-auto min-h-0">
         <AddressList addresses={addresses} setAddresses={setAddresses} />
