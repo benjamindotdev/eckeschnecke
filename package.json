@@ -2,6 +2,8 @@
   "name": "eckeschnecke",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "benjamindotdev",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
