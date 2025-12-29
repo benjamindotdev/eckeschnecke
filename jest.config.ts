@@ -15,9 +15,10 @@ const config: Config = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@formkit/auto-animate/react$': '<rootDir>/src/__mocks__/auto-animate.js',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(@dnd-kit|@formkit/auto-animate)/)',
+    'node_modules/(?!(@dnd-kit|@formkit/auto-animate)/)',
   ],
 }
  

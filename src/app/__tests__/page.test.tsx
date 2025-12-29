@@ -5,9 +5,9 @@ import { Address } from '@/components/AddressInput';
 
 // Mock child components to avoid complex setup
 jest.mock('@/components/AddressInput', () => {
-  return function MockAddressInput({ setAddresses }: { setAddresses: (addresses: Address[]) => void }) {
+  return function MockAddressInput({ onAddAddress }: { onAddAddress: (address: Address) => void }) {
     return (
-      <button onClick={() => setAddresses([{ id: '1', fullAddress: 'Test', coordinates: [0, 0], projectedCoordinates: [0, 0] }])}>
+      <button onClick={() => onAddAddress({ id: '1', fullAddress: 'Test', coordinates: [0, 0], projectedCoordinates: [0, 0] })}>
         Add Address
       </button>
     );
@@ -59,7 +59,7 @@ describe('Home Page', () => {
 
   it('renders the title', () => {
     render(<Home />);
-    expect(screen.getByText(/EckeSchnecke/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /EckeSchnecke/i })).toBeInTheDocument();
   });
 
   it('updates addresses when input changes', async () => {
