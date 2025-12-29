@@ -1,6 +1,6 @@
 # EckeSchnecke
 
-A minimal consumer web app that turns your Berlin address history into a continuous path that becomes a unique geometric “badge,” exportable as SVG.
+EckeSchnecke visualizes a person’s housing history by connecting past addresses into a continuous path within Berlin’s city limits. The result is a privacy-preserving, pixelated map shape that can be exported as an SVG for use as a profile image or digital badge.
 
 ## Features
 
