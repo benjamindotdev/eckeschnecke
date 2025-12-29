@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logo.svg" alt="StackSync logo" width="120" />
+</p>
+
 # EckeSchnecke
 
 EckeSchnecke visualizes a person’s housing history by connecting past addresses into a continuous path within Berlin’s city limits. The result is a privacy-preserving, pixelated map shape that can be exported as an SVG for use as a profile image or digital badge.
